@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Clocks</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            gap: 30px;
+        }
+        .clock {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 200px;
+        }
+        .location {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .time {
+            font-size: 1.2em;
+            color: #666666;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9em;
+            color: #999999;
+        }
+        .flag {
+            width: 30px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class="location">
+                <img src="https://flagcdn.com/w320/il.png" alt="Israel Flag" class="flag">
+                Israel
+            </div>
+            <div id="time-israel" class="time"></div>
+        </div>
+        <div class="clock">
+            <div class="location">
+                <img src="https://flagcdn.com/w320/bd.png" alt="Bangladesh Flag" class="flag">
+                Bangladesh
+            </div>
+            <div id="time-bangladesh" class="time"></div>
+        </div>
+        <div class="clock">
+            <div class="location">
+                <img src="https://flagcdn.com/w320/gb.png" alt="UK Flag" class="flag">
+                Norwich, UK
+            </div>
+            <div id="time-norwich" class="time"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Current time in different locations
+    </div>
+
+    <script>
+        function updateTime() {
+            // Get the current time
+            const now = new Date();
+
+            // Israel time (UTC+3)
+            const israelTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+            document.getElementById('time-israel').innerText = israelTime.toLocaleTimeString();
+
+            // Bangladesh time (UTC+6)
+            const bangladeshTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+            document.getElementById('time-bangladesh').innerText = bangladeshTime.toLocaleTimeString();
+
+            // Norwich, UK time (UTC+1 during BST, UTC+0 otherwise)
+            const norwichTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" }));
+            document.getElementById('time-norwich').innerText = norwichTime.toLocaleTimeString();
+        }
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+
+        // Initial call to display the time immediately when the page loads
+        updateTime();
+    </script>
+</body>
+</html>
